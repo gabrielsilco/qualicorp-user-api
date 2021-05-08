@@ -46,3 +46,45 @@ exports.getUserById = (req, res, next) => {
             console.log(error)
         })
 }
+
+exports.updateUser = (req, res, next) => {
+    const userId = req.params.userId
+    const fullName = req.body.fullName;
+    const cpf = req.body.cpf;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const birthDate = req.body.birthDate;
+
+    User.findById(userId)
+        .then(user => {
+            user.fullName = fullName;
+            user.cpf = cpf;
+            user.email = email;
+            user.phone = phone;
+            user.birthDate = birthDate;
+            return user.save();
+        })
+        .then(editedUser => {
+            res.status(200).json({
+                message: 'User updated',
+                user: editedUser
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+exports.deleteUser = (req, res, next) => {
+    const userId = req.params.userId;
+    User.findByIdAndRemove(userId)
+        .then(removedUser => {
+            res.status(200).json({
+                message: 'User deleted',
+                user: removedUser
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
