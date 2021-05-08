@@ -19,3 +19,30 @@ exports.createUser = (req, res, next) => {
             console.log(error)
         })
 }
+
+exports.getAllUsers = (req, res, next) => {
+    User.find()
+        .then(users => {
+            res.status(200).json({
+                message: 'Fetched all users',
+                users: users
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+exports.getUserById = (req, res, next) => {
+    const userId = req.params.userId;
+    User.findById(userId)
+        .then(user => {
+            res.status(200).json({
+                message: 'User fetched',
+                user: user
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
