@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+require('dotenv/config');
 
 const userRoutes = require('./routes/user');
 
@@ -17,8 +18,8 @@ app.use((req, res, next) => {
 
 app.use('/user', userRoutes)
 
-mongoose.connect('mongodb://localhost:27017/qualicorp', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(result => {
-        app.listen(5005);
+        app.listen(process.env.PORT);
     })
     .catch(err => console.log(err))
