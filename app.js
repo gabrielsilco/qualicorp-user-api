@@ -20,6 +20,6 @@ app.use('/user', userRoutes)
 
 mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(result => {
-        app.listen(process.env.PORT);
+        app.listen(process.env.PORT || 5005);
     })
     .catch(err => console.log(err))
